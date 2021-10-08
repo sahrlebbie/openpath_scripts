@@ -1,9 +1,7 @@
 #!/bin/bash
 
 #Sets the Clustermaster for Indexer Discovery
-CLUSTERMASTER="https://"
-PASSWORD=""
-PASS_4_SYM=""
+PASSWORD="YOURPASSWORD"
 
 #Adds the Splunk user if not already set. Don't forget to set the password later through an automation tool like ansible.
 sudo useradd splunk
@@ -32,6 +30,5 @@ sudo -u splunk /opt/splunk/bin/splunk start --accept-license --answer-yes --no-p
 #Finally we enable Splunk Web SSL. Be sure to custom set your certs as this script does not do that.
 sudo /opt/splunk/bin/splunk enable boot-start -user splunk
 sudo -u splunk /opt/splunk/bin/splunk enable web-ssl -auth $ADMIN_USER:$PASSWORD
-sudo -u splunk /opt/splunk/bin/splunk edit cluster-config -mode searchhead -secret $PASS4_SYM -master_uri $CLUSTERMASTER:8089 -auth $ADMIN_USER:$PASSWORD
 
 sudo -u splunk /opt/splunk/bin/splunk restart
